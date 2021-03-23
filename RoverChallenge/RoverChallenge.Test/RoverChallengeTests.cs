@@ -14,7 +14,10 @@ namespace RoverChallenge.Test
         [InlineData("F", "(0,1) N")]
         [InlineData("FB", "(0,0) N")]
         [InlineData("BB", "(0,-2) N")]
-        public void Test_MoveRover_FBOnly(string command, string expected)
+        [InlineData("FFRFF", "(2,2) E")]
+        [InlineData("LLLL", "(0,0) N")]
+        [InlineData("RR", "(0,0) S")]
+        public void Test_MoveRover_FromOrigin(string command, string expected)
         {
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
