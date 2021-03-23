@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using RoverChallenge.Controllers;
+using RoverChallenge.Models;
 using System;
 using Xunit;
 
@@ -15,7 +16,17 @@ namespace RoverChallenge.Test
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
             var expected = "(0,1) N";
-            var actual = roverController.MoveRover("F");
+            var moveRoverRequestModel = new MoveRoverRequestModel()
+            {
+                StartingPosition = new Coordinates()
+                {
+                    X = 0,
+                    Y = 0,
+                },
+                FacingDirection = DirectionEnum.N,
+                Command = "F"
+            };
+            var actual = roverController.MoveRover(moveRoverRequestModel);
             Assert.Equal(expected, actual);
         }
 
@@ -25,7 +36,17 @@ namespace RoverChallenge.Test
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
             var expected = "(0,0) N";
-            var actual = roverController.MoveRover("FB");
+            var moveRoverRequestModel = new MoveRoverRequestModel()
+            {
+                StartingPosition = new Coordinates()
+                {
+                    X = 0,
+                    Y = 0,
+                },
+                FacingDirection = DirectionEnum.N,
+                Command = "FB"
+            };
+            var actual = roverController.MoveRover(moveRoverRequestModel);
             Assert.Equal(expected, actual);
         }
 
@@ -35,7 +56,17 @@ namespace RoverChallenge.Test
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
             var expected = "(0, -2) N";
-            var actual = roverController.MoveRover("BB");
+            var moveRoverRequestModel = new MoveRoverRequestModel()
+            {
+                StartingPosition = new Coordinates()
+                {
+                    X = 0,
+                    Y = 0,
+                },
+                FacingDirection = DirectionEnum.N,
+                Command = "BB"
+            };
+            var actual = roverController.MoveRover(moveRoverRequestModel);
             Assert.Equal(expected, actual);
         }
     }

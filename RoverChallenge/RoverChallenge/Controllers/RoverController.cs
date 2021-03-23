@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RoverChallenge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace RoverChallenge.Controllers
         }
 
         [HttpPost]
-        public string MoveRover([FromBody] string commands)
+        public string MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
         {
             var result = string.Empty;
 
