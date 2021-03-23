@@ -3,6 +3,7 @@ using Moq;
 using RoverChallenge.Controllers;
 using RoverChallenge.Models;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace RoverChallenge.Test
@@ -37,7 +38,13 @@ namespace RoverChallenge.Test
                 Command = command,
             };
             var actual = roverController.MoveRover(moveRoverRequestModel);
-            Assert.Equal(expected, actual);
+            var expectedResponse = new RoverMovedResponse()
+            {
+                Result = expected,
+                Status = CommandStatus.Complete,
+            };
+            Assert.Equal(expectedResponse.Result, actual.Result);
+            Assert.Equal(expectedResponse.Status, actual.Status);
         }
 
         [Theory]
@@ -69,7 +76,50 @@ namespace RoverChallenge.Test
                 }
             };
             var actual = roverController.MoveRover(moveRoverRequestModel);
-            Assert.Equal(expected, actual);
+            var expectedResponse = new RoverMovedResponse()
+            {
+                Result = expected,
+                Status = CommandStatus.Complete,
+            };
+            Assert.Equal(expectedResponse.Result, actual.Result);
+            Assert.Equal(expectedResponse.Status, actual.Status);
+        }
+
+        [Fact]
+        public void Test_MoveRover_Obstacle()
+        {
+            string command = "RFFFFFF";
+            string expected = "(-5,0) E";
+            int startingX = 0;
+            int startingY = 0;
+            IEnumerable<Coordinates> obstacles = new List<Coordinates>() { new Coordinates() { X = 3, Y = 0 } };
+
+            Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
+            RoverController roverController = new RoverController(mockLogger.Object);
+            var moveRoverRequestModel = new MoveRoverRequestModel()
+            {
+                StartingPosition = new Coordinates()
+                {
+                    X = startingX,
+                    Y = startingY,
+                },
+                FacingDirection = DirectionEnum.N,
+                Command = command,
+                GridDimensions = new Coordinates()
+                {
+                    X = 10,
+                    Y = 10,
+                },
+                Obstacles = obstacles,
+            };
+            var actual = roverController.MoveRover(moveRoverRequestModel);
+            var expectedResponse = new RoverMovedResponse()
+            {
+                Result = expected,
+                Status = CommandStatus.Obstacle,
+            };
+            Assert.Equal(expectedResponse.Status, actual.Status);
+            Assert.Equal(expectedResponse.Result, actual.Result);
         }
     }
 }

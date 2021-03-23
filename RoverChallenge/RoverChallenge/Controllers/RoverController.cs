@@ -20,7 +20,7 @@ namespace RoverChallenge.Controllers
         }
 
         [HttpPost]
-        public string MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
+        public RoverMovedResponse MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
         {
             var rover = new Rover(moveRoverRequestModel.StartingPosition, moveRoverRequestModel.FacingDirection);
             var maxX = (moveRoverRequestModel.GridDimensions != null) ? (moveRoverRequestModel.GridDimensions.X / 2) : 10;
@@ -35,7 +35,7 @@ namespace RoverChallenge.Controllers
             var roverMover = new RoverMover(rover, moveRoverRequestModel.Command, gridDetail);
             roverMover.MoveRover();
             var result = roverMover.CurrentPosition();
-            return result;
+            return new RoverMovedResponse();
         }
     }
 }
