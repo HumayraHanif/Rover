@@ -55,7 +55,7 @@ namespace RoverChallenge.Test
         {
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
-            var expected = "(0, -2) N";
+            var expected = "(0,-2) N";
             var moveRoverRequestModel = new MoveRoverRequestModel()
             {
                 StartingPosition = new Coordinates()
