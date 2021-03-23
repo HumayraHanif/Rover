@@ -10,5 +10,6 @@ namespace RoverChallenge.Models
         public Coordinates StartingPosition { get; set; }
         public DirectionEnum FacingDirection { get; set; }
         public string Command { get; set; }
+        public Coordinates GridDimensions { get; set; }
     }
 }

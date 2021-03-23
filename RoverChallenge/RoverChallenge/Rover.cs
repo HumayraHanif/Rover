@@ -40,5 +40,13 @@ namespace RoverChallenge
         {
             FacingDirection = newDirection;
         }
+        public void UpdateX(int x)
+        {
+            this.CurrentPosition.X = x;
+        }
+        public void UpdateY(int y)
+        {
+            this.CurrentPosition.Y = y;
+        }
     }
 }

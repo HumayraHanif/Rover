@@ -10,11 +10,18 @@ namespace RoverChallenge
     {
         private Rover rover;
         private char[] commands;
+        private GridDetail gridDetail;
+        private IGridBoundsChecker forwardGridBoundsChecker;
+        private IGridBoundsChecker backwardGridBoundsChecker;
 
-        public RoverMover(Rover rover, string command)
+        public RoverMover(Rover rover, string command, GridDetail gridDetail)
         {
             this.rover = rover;
             this.commands = command.ToCharArray();
+            this.gridDetail = gridDetail;
+            this.forwardGridBoundsChecker = new ForwardGridBoundsChecker(gridDetail);
+            this.backwardGridBoundsChecker = new BackwardGridBoundsChecker(gridDetail);
+
         }
 
         public void MoveRover()
@@ -60,16 +67,44 @@ namespace RoverChallenge
             switch (rover.FacingDirection)
             {
                 case DirectionEnum.N:
-                    rover.IncrementY();
+                    if (forwardGridBoundsChecker.CheckForNorth(rover.CurrentPosition))
+                    {
+                        rover.IncrementY();
+                    }
+                    else
+                    {
+                        rover.UpdateY(gridDetail.MinY);
+                    }                   
                     break;
                 case DirectionEnum.S:
-                    rover.DecrementY();
+                    if (forwardGridBoundsChecker.CheckForSouth(rover.CurrentPosition))
+                    {
+                        rover.DecrementY();
+                    }
+                    else
+                    {
+                        rover.UpdateY(gridDetail.MaxY);
+                    }                   
                     break;
                 case DirectionEnum.E:
-                    rover.IncrementX();
+                    if (forwardGridBoundsChecker.CheckForEast(rover.CurrentPosition))
+                    {
+                        rover.IncrementX();
+                    }
+                    else
+                    {
+                        rover.UpdateX(gridDetail.MinX);
+                    }                   
                     break;
                 case DirectionEnum.W:
-                    rover.DecrementX();
+                    if (forwardGridBoundsChecker.CheckForWest(rover.CurrentPosition))
+                    {
+                        rover.DecrementX();
+                    }
+                    else
+                    {
+                        rover.UpdateX(gridDetail.MaxX);
+                    }                    
                     break;
                 default:
                     throw new NotImplementedException();
@@ -81,16 +116,47 @@ namespace RoverChallenge
             switch (rover.FacingDirection)
             {
                 case DirectionEnum.N:
-                    rover.DecrementY();
+                    if (backwardGridBoundsChecker.CheckForNorth(rover.CurrentPosition))
+                    {
+                        rover.DecrementY();
+                    }
+                    else
+                    {
+                        rover.UpdateY(gridDetail.MaxY);
+                    }                      
                     break;
                 case DirectionEnum.S:
-                    rover.IncrementY();
+                    if (backwardGridBoundsChecker.CheckForSouth(rover.CurrentPosition))
+                    {
+                        rover.IncrementY();
+                    }
+                    else
+                    {
+                        rover.UpdateY(gridDetail.MinY);
+                    }
+                        
                     break;
                 case DirectionEnum.E:
-                    rover.DecrementX();
+                    if (backwardGridBoundsChecker.CheckForEast(rover.CurrentPosition))
+                    {
+                        rover.DecrementX();
+                    }
+                    else
+                    {
+                        rover.UpdateX(gridDetail.MaxX);
+                    }
+                        
                     break;
                 case DirectionEnum.W:
-                    rover.IncrementX();
+                    if (backwardGridBoundsChecker.CheckForWest(rover.CurrentPosition))
+                    {
+                        rover.IncrementX();
+                    }
+                    else
+                    {
+                        rover.UpdateX(gridDetail.MinX);
+                    }
+                        
                     break;
                 default:
                     throw new NotImplementedException();
@@ -137,5 +203,6 @@ namespace RoverChallenge
                     throw new NotImplementedException();
             }
         }
+
     }
 }

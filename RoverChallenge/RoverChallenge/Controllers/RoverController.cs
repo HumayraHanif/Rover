@@ -23,7 +23,16 @@ namespace RoverChallenge.Controllers
         public string MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
         {
             var rover = new Rover(moveRoverRequestModel.StartingPosition, moveRoverRequestModel.FacingDirection);
-            var roverMover = new RoverMover(rover, moveRoverRequestModel.Command);
+            var maxX = (moveRoverRequestModel.GridDimensions != null) ? (moveRoverRequestModel.GridDimensions.X / 2) : 10;
+            var maxY = (moveRoverRequestModel.GridDimensions != null) ? (moveRoverRequestModel.GridDimensions.Y / 2) : 10;
+            var gridDetail = new GridDetail()
+            {
+                MaxX = maxX,
+                MinX = maxX *-1,
+                MaxY = maxY,
+                MinY = maxY * -1,
+            };
+            var roverMover = new RoverMover(rover, moveRoverRequestModel.Command, gridDetail);
             roverMover.MoveRover();
             var result = roverMover.CurrentPosition();
             return result;
