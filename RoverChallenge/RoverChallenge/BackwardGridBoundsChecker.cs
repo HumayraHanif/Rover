@@ -9,10 +9,12 @@ namespace RoverChallenge
     public class BackwardGridBoundsChecker : IGridBoundsChecker
     {
         private GridDetail gridDetail;
+        private IEnumerable<Coordinates> obstacles;
 
         public BackwardGridBoundsChecker(GridDetail gridDetail)
         {
             this.gridDetail = gridDetail;
+            this.obstacles = obstacles;
         }
         public bool CheckForEast(Coordinates currentPosition)
         {

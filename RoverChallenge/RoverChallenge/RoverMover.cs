@@ -8,6 +8,9 @@ namespace RoverChallenge
 {
     public class RoverMover
     {
+
+        public CommandStatus Status { get; private set; }
+
         private Rover rover;
         private char[] commands;
         private GridDetail gridDetail;
@@ -21,14 +24,23 @@ namespace RoverChallenge
             this.gridDetail = gridDetail;
             this.forwardGridBoundsChecker = new ForwardGridBoundsChecker(gridDetail);
             this.backwardGridBoundsChecker = new BackwardGridBoundsChecker(gridDetail);
-
+            Status = CommandStatus.Complete; // or in progress
         }
 
         public void MoveRover()
         {
             foreach (char step in commands)
             {
-                MoveRoverStep(step);
+                try
+                {
+                    MoveRoverStep(step);
+                }
+                catch (ObstacleDetectedException)
+                {
+                    this.Status = CommandStatus.Obstacle;
+                    return;
+                }
+                
             }
         }
 

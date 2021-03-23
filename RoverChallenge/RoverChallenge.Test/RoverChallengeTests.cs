@@ -85,14 +85,19 @@ namespace RoverChallenge.Test
             Assert.Equal(expectedResponse.Status, actual.Status);
         }
 
-        [Fact]
-        public void Test_MoveRover_Obstacle()
+        [Theory]
+        [InlineData("RFFFFFF", "(2,0) E", 0, 0)]
+        [InlineData("LF", "(-1,0) W", -1, 0)]
+        [InlineData("BBB", "(4,-2) N", 4, 0)]
+        [InlineData("RRBB", "(0,-2) S", 0, -3)]
+        public void Test_MoveRover_Obstacle(string command, string expected, int startingX, int startingY)
         {
-            string command = "RFFFFFF";
-            string expected = "(-5,0) E";
-            int startingX = 0;
-            int startingY = 0;
-            IEnumerable<Coordinates> obstacles = new List<Coordinates>() { new Coordinates() { X = 3, Y = 0 } };
+            IEnumerable<Coordinates> obstacles = new List<Coordinates>() {
+                new Coordinates() { X = 3, Y = 0 },
+                new Coordinates() { X = -2, Y = 0 },
+                new Coordinates() { X = 4, Y = -3 },
+                new Coordinates() { X = 0, Y = -1 },
+            };
 
             Mock<ILogger<RoverController>> mockLogger = new Mock<ILogger<RoverController>>();
             RoverController roverController = new RoverController(mockLogger.Object);
