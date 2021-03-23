@@ -22,7 +22,7 @@ namespace RoverChallenge.Controllers
         [HttpPost]
         public string MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
         {
-            var rover = new Rover(moveRoverRequestModel.StartingPosition);
+            var rover = new Rover(moveRoverRequestModel.StartingPosition, moveRoverRequestModel.FacingDirection);
             var roverMover = new RoverMover(rover, moveRoverRequestModel.Command);
             roverMover.MoveRover();
             var result = roverMover.CurrentPosition();

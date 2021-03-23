@@ -11,19 +11,34 @@ namespace RoverChallenge
         public Coordinates CurrentPosition { get; private set; }
         public DirectionEnum FacingDirection { get; private set; }
 
-        public Rover(Coordinates currentPosition)
+        public Rover(Coordinates currentPosition, DirectionEnum facingDirection)
         {
             CurrentPosition = currentPosition;
-            FacingDirection = DirectionEnum.N;
+            FacingDirection = facingDirection;
         }
 
         public void IncrementY()
         {
             CurrentPosition.Y++;
         }
+
         public void DecrementY()
         {
             CurrentPosition.Y--;
+        }
+
+        public void IncrementX()
+        {
+            CurrentPosition.X++;
+        }
+
+        public void DecrementX()
+        {
+            CurrentPosition.X--;
+        }
+        public void UpdateFacing(DirectionEnum newDirection)
+        {
+            FacingDirection = newDirection;
         }
     }
 }
