@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RoverChallenge.Models;
+using RoverChallengeCommon;
+using RoverChallengeCommon.Models;
+using RoverChallengeServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +21,14 @@ namespace RoverChallenge.Controllers
             _logger = logger;
         }
 
+        /// <summary>Moves the rover.</summary>
+        /// <param name="moveRoverRequestModel">The move rover request model.</param>
+        /// <returns> Response indicating the landing coordinates of the rover and the status </returns>
         [HttpPost]
         public RoverMovedResponse MoveRover([FromBody] MoveRoverRequestModel moveRoverRequestModel)
         {
-            var rover = new Rover(moveRoverRequestModel.StartingPosition, moveRoverRequestModel.FacingDirection, moveRoverRequestModel.Obstacles);
+            DirectionEnum direction = (DirectionEnum)Enum.Parse(typeof(DirectionEnum), moveRoverRequestModel.FacingDirection);
+            var rover = new Rover(moveRoverRequestModel.StartingPosition, direction, moveRoverRequestModel.Obstacles);
             var maxX = (moveRoverRequestModel.GridDimensions != null) ? (moveRoverRequestModel.GridDimensions.X / 2) : 10;
             var maxY = (moveRoverRequestModel.GridDimensions != null) ? (moveRoverRequestModel.GridDimensions.Y / 2) : 10;
             var gridDetail = new GridDetail()
@@ -38,7 +44,7 @@ namespace RoverChallenge.Controllers
             var result = new RoverMovedResponse()
             {
                 Result = landing,
-                Status = roverMover.Status,
+                Status = roverMover.Status.ToString(),
             };
             return result;
         }

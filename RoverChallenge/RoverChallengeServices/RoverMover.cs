@@ -1,15 +1,15 @@
-﻿using RoverChallenge.Models;
+﻿using RoverChallengeCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoverChallenge
+namespace RoverChallengeServices
 {
     public class RoverMover
     {
 
-        public CommandStatus Status { get; private set; }
+        public CommandStatusEnum Status { get; private set; }
 
         private Rover rover;
         private char[] commands;
@@ -24,9 +24,10 @@ namespace RoverChallenge
             this.gridDetail = gridDetail;
             this.forwardGridBoundsChecker = new ForwardGridBoundsChecker(gridDetail);
             this.backwardGridBoundsChecker = new BackwardGridBoundsChecker(gridDetail);
-            Status = CommandStatus.Complete; // or in progress
+            Status = CommandStatusEnum.Complete; // or in progress
         }
 
+        /// <summary>Moves the rover.</summary>
         public void MoveRover()
         {
             foreach (char step in commands)
@@ -37,19 +38,24 @@ namespace RoverChallenge
                 }
                 catch (ObstacleDetectedException)
                 {
-                    this.Status = CommandStatus.Obstacle;
+                    this.Status = CommandStatusEnum.Obstacle;
                     return;
                 }
                 
             }
         }
 
+        /// <summary>Gets the current position of the rover</summary>
+        /// <returns>The current position of the rover</returns>
         public string CurrentPosition()
         {
             var result = $"({rover.CurrentPosition.X},{rover.CurrentPosition.Y}) {rover.FacingDirection.ToString()}";
             return result;
         }
 
+        /// <summary>Moves the rover according to the given step.</summary>
+        /// <param name="step">The step.</param>
+        /// <exception cref="System.NotImplementedException">If an unsupported character is entered</exception>
         private void MoveRoverStep(char step)
         {
             if (step == 'F')

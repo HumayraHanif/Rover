@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverChallenge", "RoverChal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverChallenge.Test", "RoverChallenge.Test\RoverChallenge.Test.csproj", "{1F7184A9-66BD-4847-AF76-C7DC4D934C0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverChallengeCommon", "RoverChallengeCommon\RoverChallengeCommon.csproj", "{E3FEF6F4-7156-48B0-9F65-3C8E57EE5B37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverChallengeServices", "RoverChallengeServices\RoverChallengeServices.csproj", "{D8BABD84-3D8B-412B-8090-AA0A43856925}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1F7184A9-66BD-4847-AF76-C7DC4D934C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F7184A9-66BD-4847-AF76-C7DC4D934C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F7184A9-66BD-4847-AF76-C7DC4D934C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3FEF6F4-7156-48B0-9F65-3C8E57EE5B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3FEF6F4-7156-48B0-9F65-3C8E57EE5B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3FEF6F4-7156-48B0-9F65-3C8E57EE5B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3FEF6F4-7156-48B0-9F65-3C8E57EE5B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BABD84-3D8B-412B-8090-AA0A43856925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BABD84-3D8B-412B-8090-AA0A43856925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BABD84-3D8B-412B-8090-AA0A43856925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BABD84-3D8B-412B-8090-AA0A43856925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

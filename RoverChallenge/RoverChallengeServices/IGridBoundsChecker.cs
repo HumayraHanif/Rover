@@ -1,10 +1,10 @@
-﻿using RoverChallenge.Models;
+﻿using RoverChallengeCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoverChallenge
+namespace RoverChallengeServices
 {
     public interface IGridBoundsChecker
     {

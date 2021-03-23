@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using RoverChallenge.Controllers;
-using RoverChallenge.Models;
+using RoverChallengeCommon.Models;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -34,14 +34,14 @@ namespace RoverChallenge.Test
                     X = 0,
                     Y = 0,
                 },
-                FacingDirection = DirectionEnum.N,
+                FacingDirection = DirectionEnum.N.ToString(),
                 Command = command,
             };
             var actual = roverController.MoveRover(moveRoverRequestModel);
             var expectedResponse = new RoverMovedResponse()
             {
                 Result = expected,
-                Status = CommandStatus.Complete,
+                Status = CommandStatusEnum.Complete.ToString(),
             };
             Assert.Equal(expectedResponse.Result, actual.Result);
             Assert.Equal(expectedResponse.Status, actual.Status);
@@ -67,7 +67,7 @@ namespace RoverChallenge.Test
                     X = startingX,
                     Y = startingY,
                 },
-                FacingDirection = DirectionEnum.N,
+                FacingDirection = DirectionEnum.N.ToString(),
                 Command = command,
                 GridDimensions = new Coordinates()
                 {
@@ -79,7 +79,7 @@ namespace RoverChallenge.Test
             var expectedResponse = new RoverMovedResponse()
             {
                 Result = expected,
-                Status = CommandStatus.Complete,
+                Status = CommandStatusEnum.Complete.ToString(),
             };
             Assert.Equal(expectedResponse.Result, actual.Result);
             Assert.Equal(expectedResponse.Status, actual.Status);
@@ -108,7 +108,7 @@ namespace RoverChallenge.Test
                     X = startingX,
                     Y = startingY,
                 },
-                FacingDirection = DirectionEnum.N,
+                FacingDirection = DirectionEnum.N.ToString(),
                 Command = command,
                 GridDimensions = new Coordinates()
                 {
@@ -121,7 +121,7 @@ namespace RoverChallenge.Test
             var expectedResponse = new RoverMovedResponse()
             {
                 Result = expected,
-                Status = CommandStatus.Obstacle,
+                Status = CommandStatusEnum.Obstacle.ToString(),
             };
             Assert.Equal(expectedResponse.Status, actual.Status);
             Assert.Equal(expectedResponse.Result, actual.Result);
